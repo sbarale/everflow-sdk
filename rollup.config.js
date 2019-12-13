@@ -15,7 +15,7 @@ export default {
         commonjs(),
         babel({
             babelrc: false,
-            presets: [['@babel/preset-env', { modules: false }]],
+            presets: [['@babel/preset-env', { modules: false, useBuiltIns: 'usage', corejs: 3}]],
             exclude: 'node_modules/**'
         }),
         uglify(),
