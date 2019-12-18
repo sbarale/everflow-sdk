@@ -37,8 +37,6 @@ class EF {
                 Fingerprint2.get((components) => {
                     var murmur = Fingerprint2.x64hash128(components.map((component) => component.value).join(''), 31)
 
-                    console.log(murmur.length);
-
                     const url = new URL(`${this._trackingDomain}/imp`)
 
                     const queryParams = new URLSearchParams(url.search);
@@ -128,12 +126,14 @@ class EF {
             return Promise.resolve("");
         }
 
+        if (options.transaction_id) {
+            console.log(options.transaction_id);
+        }
+
         return new Promise((resolve, reject) => {
             this._fingerprintingReady.then(() => {
                 Fingerprint2.get((components) => {
                     var murmur = Fingerprint2.x64hash128(components.map((component) => component.value).join(''), 31)
-
-                    console.log(murmur.length);
 
                     const url = new URL(`${this._trackingDomain}/clk`)
 
@@ -222,6 +222,10 @@ class EF {
     conversion(options) {
         if (!options.transaction_id) {
             options.transaction_id = this._fetch(`ef_tid_${options.offer_id}`);
+        }
+
+        if (options.transaction_id) {
+            console.log(options.transaction_id);
         }
 
         this._fingerprintingReady.then(() => {
